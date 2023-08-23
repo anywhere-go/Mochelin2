@@ -66,7 +66,7 @@
 
 
         <EditText
-            android:id="@+id/editPassword"
+            android:id="@+id/editPassword1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"

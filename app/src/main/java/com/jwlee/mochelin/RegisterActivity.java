@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.editEmail);
         editNickName = findViewById(R.id.editNickName);
         editName = findViewById(R.id.editName);
-        editPassword1 = findViewById(R.id.editPassword);
+        editPassword1 = findViewById(R.id.editPassword1);
         editPassword2 = findViewById(R.id.editPassword2);
 
         btnRegister = findViewById(R.id.btnRegister);
@@ -62,18 +62,10 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = editEmail.getText().toString().trim();
                 String nickname = editNickName.getText().toString().trim();
                 String name = editName.getText().toString().trim();
-
-
-
-                Pattern pattern = Patterns.EMAIL_ADDRESS; // 여러 패턴 중에 하나의 패턴 꺼집어낸다.
-                if (pattern.matcher(email).matches() == false) {
-                    Snackbar.make(btnRegister,
-                            "이메일 형식을 확인하세요.",
-                            Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
                 String password1 = editPassword1.getText().toString().trim();
                 String password2 = editPassword2.getText().toString().trim();
+
+
 
                 if(email.isEmpty() || nickname.isEmpty() || name.isEmpty() || password1.isEmpty() || password2.isEmpty()){
                     Snackbar.make(btnRegister,
@@ -81,6 +73,14 @@ public class RegisterActivity extends AppCompatActivity {
                             Snackbar.LENGTH_SHORT).show();
                     return;
                 }
+                Pattern pattern = Patterns.EMAIL_ADDRESS; // 여러 패턴 중에 하나의 패턴 꺼집어낸다.
+                if (pattern.matcher(email).matches() == false) {
+                    Snackbar.make(btnRegister,
+                            "이메일 형식을 확인하세요.",
+                            Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if( email.contains("@") == false ){
                     Snackbar.make(btnRegister,
                             "이메일 형식을 확인하세요.",
@@ -103,21 +103,23 @@ public class RegisterActivity extends AppCompatActivity {
 
                 Retrofit retrofit = NetworkClient.getRetrofitClient(RegisterActivity.this);
                 UserApi api = retrofit.create(UserApi.class);
-                User user = new User(email, password1);
+                User user = new User(email, password1,name, nickname);
+
                 Call<UserRes> call = api.register(user);
+
                 call.enqueue(new Callback<UserRes>() {
                     @Override
                     public void onResponse(Call<UserRes> call, Response<UserRes> response) {
-                        dismissProgress();
+//                        dismissProgress();
                         if (response.isSuccessful()) {
-                            SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME,MODE_PRIVATE);
-                            SharedPreferences.Editor editor =sp.edit();
+//                            SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME,MODE_PRIVATE);
+//                            SharedPreferences.Editor editor =sp.edit();
+//
+//                            UserRes res = response.body();
+//                            editor.putString(Config.ACCESS_TOKEN, res.access_token);  // public 설정해서 res.access_token 사용가능
+//                            editor.apply();
 
-                            UserRes res = response.body();
-                            editor.putString(Config.ACCESS_TOKEN, res.access_token);  // public 설정해서 res.access_token 사용가능
-                            editor.apply();
-
-                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
 
@@ -142,7 +144,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<UserRes> call, Throwable t) {
-                        dismissProgress();
+//                        dismissProgress();
 
                     }
                 });
@@ -162,18 +164,18 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    Dialog dialog;
-
-    void showProgress(){
-        dialog = new Dialog(this);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.setContentView(new ProgressBar(this));
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
-    }
-
-    void dismissProgress(){
-        dialog.dismiss();
-    }
+//    Dialog dialog;
+//
+//    void showProgress(){
+//        dialog = new Dialog(this);
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        dialog.setContentView(new ProgressBar(this));
+//        dialog.setCancelable(false);
+//        dialog.setCanceledOnTouchOutside(false);
+//        dialog.show();
+//    }
+//
+//    void dismissProgress(){
+//        dialog.dismiss();
+//    }
 }

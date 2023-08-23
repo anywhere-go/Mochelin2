@@ -60,7 +60,8 @@
             android:layout_marginBottom="15dp"
             android:ems="10"
             android:hint="이메일"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
             android:id="@+id/editNickName"
@@ -71,7 +72,8 @@
             android:layout_marginBottom="15dp"
             android:ems="10"
             android:hint="닉네임"
-            android:inputType="text" />
+            android:inputType="text"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
             android:id="@+id/editName"
@@ -82,10 +84,11 @@
             android:layout_marginBottom="15dp"
             android:ems="10"
             android:hint="이름"
-            android:inputType="text" />
+            android:inputType="text"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
-            android:id="@+id/editPassword"
+            android:id="@+id/editPassword1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -93,7 +96,8 @@
             android:layout_marginBottom="15dp"
             android:ems="10"
             android:hint="비밀번호 입력"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
             android:id="@+id/editPassword2"
@@ -104,7 +108,8 @@
             android:layout_marginBottom="15dp"
             android:ems="10"
             android:hint="비밀번호 확인"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <Button
             android:id="@+id/btnRegister"
